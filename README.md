@@ -14,26 +14,35 @@ A machine-learning pipeline for multi-class network intrusion detection using th
 
 ```
 Project/
-├── Input/                        
-├── models/
+├── Input/ - Raw dataset files                  
+├── app/ - Streamlit dashboard application
+│   ├── app.py - Main Streamlit dashboard script
+│   └── samples/ - Sample network flows for demo testing
+│
+├── docs/ - Project documentation, reports, and planning artifacts
+│
+├── models/ - Serialized models and encoders
 │   ├── label_encoder.joblib
 │   └── xgboost_best_model.joblib
 │
-├── splits/                       
+├── scripts/ - Utility scripts
+│   └── generate_samples.py - Script to extract sample network flows for testing
+│
+├── splits/ - Train/test split data                    
 │   ├── X_train.pkl
 │   ├── X_test.pkl
 │   ├── y_train.pkl
 │   └── y_test.pkl
 │
-├── src/                                                 
+├── src/ - Source code and pipeline scripts                                                
 │   ├── __init__.py
-│   ├── data_ingestion.py
-│   ├── eda.py
-│   ├── preprocessing.py - Data cleaning + correlation analysis and feature selection
-│   ├── feature_engineering.py
-│   └── model_training.py - Train/test split, evaluation, comparison
+│   ├── data_ingestion.py - Script to load raw data
+│   ├── eda.py - Exploratory Data Analysis functions
+│   ├── preprocessing.py - Data cleaning, correlation analysis, and feature selection
+│   ├── feature_engineering.py - Feature extraction and transformation
+│   └── model_training.py - Train/test split, evaluation, and model comparison
 │
-├── notebooks/
+├── notebooks/ - Jupyter notebooks for experimentation and analysis
 │   ├── 01_data_pipeline.ipynb
 │   ├── 02_logistic_regression.ipynb
 │   ├── 03_decision_tree.ipynb
@@ -44,11 +53,11 @@ Project/
 │   ├── 08_hyperparameter_tuning.ipynb
 │   ├── 09_model_comparison.ipynb
 │   ├── 10_ensemble_model.ipynb
-│   └── results/
+│   └── results/ - Directory storing notebook outputs
 │
-├── cicids2017_cleaned.csv
-├── README.md
-└── requirements.txt
+├── cicids2017_cleaned.csv - Processed dataset
+├── README.md - Project documentation
+└── requirements.txt - Python dependencies
 ```
 ## Installation
 
