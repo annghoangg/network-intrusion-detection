@@ -19,8 +19,6 @@ Project/
 │   ├── app.py - Main Streamlit dashboard script
 │   └── samples/ - Sample network flows for demo testing
 │
-├── docs/ - Project documentation, reports, and planning artifacts
-│
 ├── models/ - Serialized models and encoders
 │   ├── label_encoder.joblib
 │   └── xgboost_best_model.joblib
@@ -28,7 +26,7 @@ Project/
 ├── scripts/ - Utility scripts
 │   └── generate_samples.py - Script to extract sample network flows for testing
 │
-├── splits/ - Train/test split data                    
+├── splits/ - Train/test split data      
 │   ├── X_train.pkl
 │   ├── X_test.pkl
 │   ├── y_train.pkl

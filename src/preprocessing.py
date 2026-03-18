@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 
-
-# Nhóm nhãn tấn công từ CICIDS2017 → nhãn tổng quát
+# Label mapping
 _LABEL_MAP: dict[str, str] = {
     "BENIGN": "BENIGN",
     "DoS Hulk": "DoS",
@@ -27,14 +26,11 @@ _LABEL_MAP: dict[str, str] = {
 # Các lớp bị loại khỏi phân tích (quá hiếm / nhiễu)
 _CLASSES_TO_REMOVE = ["Infiltration", "Miscellaneous"]
 
-
 # 1. Các bước làm sạch riêng lẻ
-
 def strip_column_names(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df.columns = df.columns.str.strip()
     return df
-
 
 def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     before = len(df)
@@ -43,7 +39,6 @@ def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     print(f"  remove_duplicates: removed {dropped:,} duplicate rows "
           f"({dropped / before * 100:.2f}%)")
     return df
-
 
 def remove_identity_columns(df: pd.DataFrame) -> pd.DataFrame:
     columns = df.columns.tolist()
@@ -63,7 +58,6 @@ def remove_identity_columns(df: pd.DataFrame) -> pd.DataFrame:
         print("  remove_identity_columns: no identical columns found.")
     return df
 
-
 def handle_infinite_values(df: pd.DataFrame) -> pd.DataFrame:
     num_cols = df.select_dtypes(include=np.number).columns
     inf_counts = np.isinf(df[num_cols]).sum()
@@ -71,7 +65,6 @@ def handle_infinite_values(df: pd.DataFrame) -> pd.DataFrame:
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     print(f"  handle_infinite_values: replaced {total_inf:,} infinite value(s) with NaN.")
     return df
-
 
 def handle_missing_values(df: pd.DataFrame, strategy: str = "drop") -> pd.DataFrame:
     before = len(df)
@@ -83,7 +76,6 @@ def handle_missing_values(df: pd.DataFrame, strategy: str = "drop") -> pd.DataFr
     else:
         raise NotImplementedError(f"Strategy '{strategy}' is not implemented yet.")
     return df
-
 
 def standardise_label_column(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
