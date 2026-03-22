@@ -3,10 +3,10 @@ import pandas as pd
 
 
 def load_raw_data(input_dir: str = "Input/") -> pd.DataFrame:
-    # Dùng pyarrow nếu có để đọc CSV nhanh hơn
+    # Dùng pyarrow
     read_kwargs: dict = {}
     try:
-        import pyarrow  # noqa: F401
+        import pyarrow
         read_kwargs["engine"] = "pyarrow"
     except ImportError:
         pass
@@ -26,7 +26,7 @@ def load_raw_data(input_dir: str = "Input/") -> pd.DataFrame:
             "Please check the input directory path."
         )
 
-    print(f"\n  Loaded {len(dfs)} file(s). Concatenating …")
+    print(f"\n  Loaded {len(dfs)} file(s). Concatenating")
     data = pd.concat(dfs, axis=0, ignore_index=True)
 
     # Giải phóng bộ nhớ từng file con
@@ -34,5 +34,5 @@ def load_raw_data(input_dir: str = "Input/") -> pd.DataFrame:
         del df_part
     del dfs
 
-    print(f"  ✓ Merged dataset shape: {data.shape[0]:,} rows × {data.shape[1]} columns\n")
+    print(f"Merged dataset shape: {data.shape[0]:,} rows × {data.shape[1]} columns\n")
     return data

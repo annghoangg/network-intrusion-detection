@@ -46,18 +46,18 @@ def analyze_variance_homogeneity(
         ]
 
         if len(groups) < 2:
-            print(f"  ⚠ Skipping Levene's test for '{feat}' — insufficient valid groups.")
+            print(f"Skipping Levene's test for '{feat}' — insufficient valid groups.")
             continue
 
         stat, p_value = stats.levene(*groups)
         results[feat] = {"Statistic": stat, "p-value": p_value}
 
     sig = sum(1 for r in results.values() if r["p-value"] <= 0.05)
-    print(f"  Levene's test: {sig}/{len(results)} features show significant variance differences (p ≤ 0.05).")
+    print(f"Levene's test: {sig}/{len(results)} features show significant variance differences (p ≤ 0.05).")
     return results
 
 
-# 3. Mức độ quan trọng đặc trưng — Kruskal-Wallis
+# 3. Mức độ quan trọng đặc trưng (Kruskal-Wallis)
 
 def analyze_feature_importance_kruskal(
     df: pd.DataFrame,
@@ -94,7 +94,7 @@ def analyze_feature_importance_kruskal(
     return h_df
 
 
-# 4. Mức độ quan trọng đặc trưng — Random Forest
+# 4. Mức độ quan trọng đặc trưng (Random Forest)
 
 def analyze_feature_importance_rf(
     df: pd.DataFrame,
