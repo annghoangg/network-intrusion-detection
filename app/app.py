@@ -81,18 +81,16 @@ def inject_css():
 
     /* ── Root variables ── */
     :root {
-        --bg-primary: #0f172a;
-        --bg-card: #1e293b;
-        --bg-card-hover: #334155;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --accent: #6366f1;
-        --accent-glow: rgba(99, 102, 241, 0.3);
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --critical: #dc2626;
-        --border: #334155;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --accent: #4f46e5;
+        --accent-light: rgba(79, 70, 229, 0.08);
+        --success: #059669;
+        --warning: #d97706;
+        --danger: #dc2626;
+        --critical: #b91c1c;
+        --border: #e2e8f0;
         --radius: 12px;
     }
 
@@ -103,17 +101,17 @@ def inject_css():
 
     /* ── Metric cards ── */
     .metric-card {
-        background: linear-gradient(135deg, var(--bg-card) 0%, rgba(30, 41, 59, 0.8) 100%);
+        background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 1.25rem 1.5rem;
         text-align: center;
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
     .metric-card:hover {
         border-color: var(--accent);
-        box-shadow: 0 0 20px var(--accent-glow);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
         transform: translateY(-2px);
     }
     .metric-label {
@@ -146,10 +144,10 @@ def inject_css():
         text-transform: uppercase;
         margin-top: 0.5rem;
     }
-    .badge-low      { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
-    .badge-medium   { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
-    .badge-high     { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
-    .badge-critical { background: rgba(220,38,38,0.15);  color: #dc2626; border: 1px solid rgba(220,38,38,0.3); }
+    .badge-low      { background: rgba(5,150,105,0.1);  color: #059669; border: 1px solid rgba(5,150,105,0.25); }
+    .badge-medium   { background: rgba(217,119,6,0.1);  color: #d97706; border: 1px solid rgba(217,119,6,0.25); }
+    .badge-high     { background: rgba(220,38,38,0.1);  color: #dc2626; border: 1px solid rgba(220,38,38,0.25); }
+    .badge-critical { background: rgba(185,28,28,0.1);  color: #b91c1c; border: 1px solid rgba(185,28,28,0.25); }
 
     /* ── Section headers ── */
     .section-header {
@@ -172,7 +170,7 @@ def inject_css():
         border: 1px solid var(--border);
     }
     .breakdown-table th {
-        background: var(--bg-card);
+        background: #f8fafc;
         color: var(--text-secondary);
         font-size: 0.75rem;
         font-weight: 600;
@@ -188,7 +186,7 @@ def inject_css():
         font-size: 0.9rem;
     }
     .breakdown-table tr:hover td {
-        background: rgba(99, 102, 241, 0.05);
+        background: var(--accent-light);
     }
     .class-dot {
         display: inline-block;
@@ -224,9 +222,6 @@ def inject_css():
         color: var(--text-primary);
         margin-top: 0.15rem;
     }
-
-    /* ── Hide default Streamlit metric ── */
-    [data-testid="stMetric"] { display: none; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -263,13 +258,13 @@ def render_threat_badge(attack_rate):
 
 # ── Plotly config ──
 PLOTLY_LAYOUT = dict(
-    paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter, sans-serif", color="#f1f5f9"),
+    paper_bgcolor="#ffffff",
+    plot_bgcolor="#ffffff",
+    font=dict(family="Inter, sans-serif", color="#1e293b"),
     margin=dict(l=40, r=40, t=50, b=40),
     legend=dict(
-        bgcolor="rgba(30,41,59,0.8)",
-        bordercolor="#334155",
+        bgcolor="#ffffff",
+        bordercolor="#e2e8f0",
         borderwidth=1,
     ),
 )
@@ -344,11 +339,11 @@ with st.sidebar:
 
 # ── Main content ──
 st.markdown(
-    '<h1 style="text-align:center; margin-bottom:0;">Network Intrusion Detection System</h1>',
+    '<h1 style="text-align:center; margin-bottom:0; color:#1e293b;">Network Intrusion Detection System</h1>',
     unsafe_allow_html=True,
 )
 st.markdown(
-    '<p style="text-align:center; color:#94a3b8; margin-top:0.25rem; margin-bottom:1.5rem;">'
+    '<p style="text-align:center; color:#64748b; margin-top:0.25rem; margin-bottom:1.5rem;">'
     'Real-time classification of network flows using XGBoost · CICIDS2017</p>',
     unsafe_allow_html=True,
 )
@@ -360,9 +355,9 @@ if data is None:
     with col_empty:
         st.markdown(
             '<div style="text-align:center; padding: 4rem 2rem;">'
-            '<p style="font-size:2rem; margin-bottom:0.5rem; color:#6366f1; font-weight:800;">NO DATA</p>'
-            '<h3 style="color:#f1f5f9;">No Data Loaded</h3>'
-            '<p style="color:#94a3b8;">Upload a CSV file or use sample data from the sidebar to begin analysis.</p>'
+            '<p style="font-size:2rem; margin-bottom:0.5rem; color:#4f46e5; font-weight:800;">NO DATA</p>'
+            '<h3 style="color:#1e293b;">No Data Loaded</h3>'
+            '<p style="color:#64748b;">Upload a CSV file or use sample data from the sidebar to begin analysis.</p>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -466,8 +461,8 @@ with tab_overview:
             yaxis_title="Number of Flows",
             bargap=0.05,
         )
-        fig_hist.update_xaxes(gridcolor="#1e293b", zeroline=False)
-        fig_hist.update_yaxes(gridcolor="#1e293b", zeroline=False)
+        fig_hist.update_xaxes(gridcolor="#f1f5f9", zeroline=False)
+        fig_hist.update_yaxes(gridcolor="#f1f5f9", zeroline=False)
         styled_plotly(fig_hist, height=380)
 
     # ── Per-class breakdown table ──
@@ -570,15 +565,15 @@ with tab_threats:
             opacity=0.8,
         )
         fig_timeline.update_traces(
-            marker=dict(size=8, line=dict(width=1, color="#0f172a")),
+            marker=dict(size=8, line=dict(width=1, color="#ffffff")),
         )
         fig_timeline.update_layout(
             xaxis_title="Flow Index (simulated time →)",
             yaxis_title="Confidence (%)",
             legend_title="Attack Type",
         )
-        fig_timeline.update_xaxes(gridcolor="#1e293b", zeroline=False)
-        fig_timeline.update_yaxes(gridcolor="#1e293b", zeroline=False)
+        fig_timeline.update_xaxes(gridcolor="#f1f5f9", zeroline=False)
+        fig_timeline.update_yaxes(gridcolor="#f1f5f9", zeroline=False)
         styled_plotly(fig_timeline, height=400)
 
         # ── Filter & table ──
@@ -644,9 +639,9 @@ with tab_threats:
         ))
         fig_radar.update_layout(
             polar=dict(
-                bgcolor="rgba(0,0,0,0)",
-                radialaxis=dict(visible=True, range=[0, 1], gridcolor="#334155", tickfont=dict(size=9)),
-                angularaxis=dict(gridcolor="#334155", tickfont=dict(size=10, color="#94a3b8")),
+                bgcolor="#ffffff",
+                radialaxis=dict(visible=True, range=[0, 1], gridcolor="#e2e8f0", tickfont=dict(size=9, color="#64748b")),
+                angularaxis=dict(gridcolor="#e2e8f0", tickfont=dict(size=10, color="#475569")),
             ),
             title=f"Flow #{radar_idx} — {results.iloc[radar_idx]['Prediction']} ({results.iloc[radar_idx]['Confidence (%)']:.1f}%)",
         )
@@ -681,7 +676,7 @@ with tab_explain:
             f'<div class="metric-card" style="margin-top:0.5rem">'
             f'<div class="metric-label">Predicted Class</div>'
             f'<div class="metric-value" style="font-size:1.4rem; color:{get_color(pred_label)}">{pred_label}</div>'
-            f'<div style="color:#94a3b8; font-size:0.85rem; margin-top:0.25rem;">{pred_conf:.1f}% confidence</div>'
+            f'<div style="color:#64748b; font-size:0.85rem; margin-top:0.25rem;">{pred_conf:.1f}% confidence</div>'
             f'</div>',
             unsafe_allow_html=True,
         )
@@ -722,16 +717,16 @@ with tab_explain:
             # ── Waterfall plot ──
             fig_wf, ax_wf = plt.subplots(figsize=(10, 6))
             shap.plots.waterfall(explanation, max_display=top_k, show=False)
-            plt.title(f"SHAP Waterfall — {pred_label}", fontsize=14, color="#f1f5f9")
+            plt.title(f"SHAP Waterfall — {pred_label}", fontsize=14, color="#1e293b")
             ax_wf = plt.gca()
-            ax_wf.set_facecolor("#0f172a")
+            ax_wf.set_facecolor("#ffffff")
             fig_wf = plt.gcf()
-            fig_wf.patch.set_facecolor("#0f172a")
+            fig_wf.patch.set_facecolor("#ffffff")
             for spine in ax_wf.spines.values():
-                spine.set_color("#334155")
-            ax_wf.tick_params(colors="#94a3b8")
-            ax_wf.xaxis.label.set_color("#94a3b8")
-            ax_wf.yaxis.label.set_color("#94a3b8")
+                spine.set_color("#e2e8f0")
+            ax_wf.tick_params(colors="#475569")
+            ax_wf.xaxis.label.set_color("#475569")
+            ax_wf.yaxis.label.set_color("#475569")
             plt.tight_layout()
             st.pyplot(fig_wf)
             plt.close()
@@ -760,8 +755,8 @@ with tab_explain:
                 xaxis_title="SHAP Value (impact on prediction)",
                 yaxis_title="",
             )
-            fig_bar.update_xaxes(gridcolor="#1e293b", zeroline=True, zerolinecolor="#475569")
-            fig_bar.update_yaxes(gridcolor="#1e293b")
+            fig_bar.update_xaxes(gridcolor="#f1f5f9", zeroline=True, zerolinecolor="#cbd5e1")
+            fig_bar.update_yaxes(gridcolor="#f1f5f9")
             styled_plotly(fig_bar, height=450)
 
             # ── Feature table ──
@@ -776,8 +771,8 @@ with tab_explain:
 
         else:
             st.markdown(
-                '<div style="text-align:center; padding: 3rem 2rem; color:#94a3b8;">'
-                '<p style="font-size:1.5rem; margin-bottom:0.5rem; color:#6366f1; font-weight:800;">SHAP</p>'
+                '<div style="text-align:center; padding: 3rem 2rem; color:#64748b;">'
+                '<p style="font-size:1.5rem; margin-bottom:0.5rem; color:#4f46e5; font-weight:800;">SHAP</p>'
                 '<p>Select a row index and click <b>Explain This Prediction</b> to see the SHAP analysis.</p>'
                 '</div>',
                 unsafe_allow_html=True,
