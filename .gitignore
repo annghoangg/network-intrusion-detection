@@ -8,9 +8,6 @@ cicids2017_cleaned.csv
 *.pcap
 *.pkl
 
-# Local docs (for report use only)
-docs/
-
 # Python
 __pycache__/
 *.pyc
