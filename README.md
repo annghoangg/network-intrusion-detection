@@ -14,6 +14,7 @@ A machine-learning pipeline for multi-class network intrusion detection using th
 
 ```
 Project/
+├── docs/ - Project documents, including Pipeline and Report
 ├── Input/ - Raw dataset files                  
 ├── app/ - Streamlit dashboard application
 │   ├── app.py - Main Streamlit dashboard script
@@ -54,9 +55,13 @@ Project/
 │   └── results/ - Directory storing notebook outputs
 │
 ├── cicids2017_cleaned.csv - Processed dataset
+├── data-cicids2017.ipynb - Legacy Data Preprocessing Pipeline
 ├── README.md - Project documentation
 └── requirements.txt - Python dependencies
 ```
+
+## Project Pipeline: https://drive.google.com/file/d/1miDZyRl9wCciHPR90IJYUO-PoqMrEoai/view?usp=sharing
+
 ## Installation
 
 To install all the necessary libraries used in this project, run the following command to install them from the provided text file:
@@ -65,29 +70,8 @@ To install all the necessary libraries used in this project, run the following c
 pip install -r requirements.txt
 ```
 
-## ML Pipeline Overview
-
-```
-Input CSVs  →  data_ingestion  →  eda  →  preprocessing  →  feature_engineering  →  cicids2017_cleaned.csv  →  model training
-                                                                                                                     ↓
-                                                                                                          (split → train → evaluate)
-                                           
-                                                                         
-```
-
-
 Run **`notebooks/01_data_pipeline.ipynb`**
 This will generate `cicids2017_cleaned.csv`.
-
-**Importing Individual Modules**
-
-```python
-from src.data_ingestion     import load_raw_data
-from src.preprocessing      import run_preprocessing_pipeline
-from src.feature_engineering import run_feature_engineering_pipeline
-from src.eda                 import analyze_feature_importance_kruskal
-from src.model_training      import evaluate_model, compare_models
-```
 
 ## Dashboard Demo
 
@@ -96,7 +80,6 @@ To launch the interactive dashboard for testing the trained model:
 ```bash
 streamlit run app/app.py
 ```
-
 Upload a CSV file containing network flow features, or click **Use Sample Data** to try the demo with pre-loaded test data.
 
 ## Target Classes (Attack Types)
